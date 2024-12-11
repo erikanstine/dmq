@@ -19,6 +19,11 @@ class Queue:
         query = "SELECT * FROM queues"
         return fetch_all(query)
 
+    @staticmethod
+    def delete_by_id(queue_id):
+        query = "DELETE FROM queues WHERE id = ?"
+        execute_query(query, (queue_id,))
+
 
 class Message:
     @staticmethod

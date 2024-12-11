@@ -24,7 +24,6 @@ def create_queue(queue: Queue):
 @app.get("/api/queues")
 def get_queues() -> list[QueueResponse]:
     res = DBQueue.list_all()
-    # print([dict(r) for r in res])
     if res:
         return [QueueResponse(**dict(r)) for r in res]
 
@@ -37,9 +36,10 @@ def get_queue(queue_id: int) -> QueueResponse:
     return QueueResponse(**dict(res))
 
 
-@app.delete("/api/queues/{queue_name}")
-def delete_queue(queue_name: str):
-    return {"deleted"}
+@app.delete("/api/queues/{queue_id}")
+def delete_queue(queue_id: int):
+    DBQueue.delete_by_id(queue_id=queue_id)
+    return True
 
 
 """

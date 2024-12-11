@@ -28,6 +28,14 @@ async def list_queues(
     return queue
 
 
+@app.delete("/proxy/queues/{queue_id}", tags=["Proxy"])
+async def delete_queue(
+    queue_id: int, client: MetadataClient = Depends(get_metadata_client)
+):
+    client.delete_queue(queue_id=queue_id)
+    return {"message": f"Queue {queue_id} deleted successfully."}
+
+
 @app.get("/api/queues")
 def get_queues():
     queues = [{"name": "queue1", "size": 100}, {"name": "queue2", "size": 50}]
